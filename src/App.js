@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import { Button } from 'semantic-ui-react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+constructor() {
+ super()
+  this.state = {
+    day: '00',
+    hours: '00',
+    min:'00',
+    sec:'00',
+    result: ''
+  }
+}
+
+  setDay = (e) => {
+    console.log(e.target.value)
+    this.setState(
+      {
+        day: e.target.value
+      }
+      );
+  } 
+
+  setHours = (e) => {
+    this.setState({hours: e.target.value}); 
+  }
+
+  setMin = (e) => {
+    this.setState({min: e.target.value}); 
+  }
+
+  setSec = (e) => {
+    this.setState ({sec: e.target.value}); 
+  } 
+
+  yourResult = () => {
+    const result = 'Day:' + this.state.day + ' Hours:' + this.state.hours +  ' Min:' + this.state.min + ' Sec:' + this.state.sec; 
+    this.setState({result: result})
+  }
+
+  render () { 
+    return (
+      <div className="App">
+        <h1>Countdown</h1>
+        <input type = '' placeholder = 'Add day' onChange={this.setDay}></input> 
+        <input type = '' placeholder = 'Add hours' onChange={this.setHours}></input>
+        <input type = '' placeholder = 'Add min' onChange={this.setMin}></input>
+        <input type = '' placeholder = 'Add sec' onChange={this.setSec}></input> 
+        <Button primary onClick={this.yourResult}>OK</Button>
+        {this.state.result}
+
+      </div>
+    )
+  }  
 }
 
 export default App;
