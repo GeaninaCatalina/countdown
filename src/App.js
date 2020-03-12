@@ -10,31 +10,35 @@ class App extends Component {
       hour: 0,
       min: 0,
       sec: 0,
+      input:false,
       result: ''
     }
   }
   setDay = (e) => {
-    this.setState({ day: e.target.value });
+    this.setState({ day: e.target.value, input: true });
   }
 
   setHours = (e) => {
-    this.setState({ hour: e.target.value });
+    this.setState({ hour: e.target.value, input: true });
   }
 
   setMin = (e) => {
-    this.setState({ min: e.target.value });
+    this.setState({ min: e.target.value, input: true });
   }
 
   setSec = (e) => {
-    this.setState({ sec: e.target.value });
+    this.setState({ sec: e.target.value, input: true  });
   }
 
-  yourResult = () => {
-    
-    this.doIntervalChange();
-  }
+  yourResult = () => { 
+    if (this.state.day ===0 && this.state.hour ===0 && this.state.min ===0 && this.state.sec ===0 ) {
+      alert('You need to provide an input at least');
+    } else {
+     this.doIntervalChange();
+    }
+  } 
 
-  doIntervalChange = () => {
+    doIntervalChange = () => {
     this.myInterval = setInterval(() => {
       if (this.state.sec !== 0) {
         this.setState(prevState => (
@@ -108,7 +112,7 @@ class App extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={1}>
-            <Grid.Column>
+            <Grid.Column> 
               <Button primary onClick={this.yourResult}>OK</Button>
             </Grid.Column>
           </Grid.Row>
