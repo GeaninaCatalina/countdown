@@ -1,9 +1,19 @@
 .App {
-  text-align: center;
-} 
-
-.card {
-  justify-content: center;
+  text-align: center; 
+  justify-items: center; 
+  margin-top: 10%;
 }
 
+.card {
+  justify-content: center; 
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 50px;
+  color:rgb(43, 23, 23);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-shadow: 3px 5px 10px rgba(56, 15, 15, 0.911);
+  margin-bottom: 10%;
+}
 

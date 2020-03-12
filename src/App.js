@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Grid } from 'semantic-ui-react';
+import { Button, Grid, Card } from 'semantic-ui-react';
 
 class App extends Component {
   constructor() {
@@ -30,72 +30,81 @@ class App extends Component {
   }
 
   yourResult = () => {
+    
     this.doIntervalChange();
   }
 
   doIntervalChange = () => {
     this.myInterval = setInterval(() => {
-     if (this.state.sec !== 0) {
-       this.setState(prevState => (
-         {
-           sec: prevState.sec -1, 
-           result: ' ' + this.state.day + ' ' + this.state.hour + ' ' + this.state.min + ' ' + this.state.sec
+      if (this.state.sec !== 0) {
+        this.setState(prevState => (
+          {
+            sec: prevState.sec - 1,
+            result: 'Days ' + this.state.day + ' Hours ' + this.state.hour + ' Minutes ' + this.state.min + ' Seconds' + this.state.sec
           }
         ))
       } else if (this.state.min !== 0) {
         this.setState(prevState => (
           {
-            min: prevState.min -1,
-            sec: 59, 
-            result: ' ' + this.state.day + ' ' + this.state.hour + ' ' + this.state.min + ' ' + this.state.sec
+            min: prevState.min - 1,
+            sec: 59,
+            result: 'Days ' + this.state.day + ' Hours ' + this.state.hour + ' Minutes ' + this.state.min + ' Seconds' + this.state.sec
           }
-        )) 
+        ))
       } else if (this.state.hour !== 0) {
         this.setState(prevState => (
           {
-            hour: prevState.hour -1,
+            hour: prevState.hour - 1,
             min: 59,
-            sec: 59, 
-            result: ' ' + this.state.day + ' ' + this.state.hour + ' ' + this.state.min + ' ' + this.state.sec
+            sec: 59,
+            result: 'Days ' + this.state.day + ' Hours ' + this.state.hour + ' Minutes ' + this.state.min + ' Seconds' + this.state.sec
           }
-        )) 
+        ))
       } else if (this.state.day !== 0) {
         this.setState(prevState => (
           {
-            day: prevState.day -1,
+            day: prevState.day - 1,
             hour: 23,
             min: 59,
-            sec: 59, 
-            result: ' ' + this.state.day + ' ' + this.state.hour + ' ' + this.state.min + ' ' + this.state.sec
+            sec: 59,
+            result: 'Days ' + this.state.day + ' Hours ' + this.state.hour + ' Minutes ' + this.state.min + ' Seconds' + this.state.sec
           }
         ))
       } else {
-        this.setState({ result: 'Time is out!'});
+        this.setState({ result: 'Time is out!' });
         clearInterval(this.myInterval);
       }
 
-  }, 1000)
-}
+    }, 1000)
+  }
 
   render() {
     return (
       <div className="App">
         <h1>Countdown</h1>
-        <Grid>
+        <Grid className='Grid'>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <input type='' placeholder='Add day' onChange={this.setDay}></input>
+              <div class="ui big icon input">
+                <input type='' placeholder='Add day' onChange={this.setDay}></input>
+              </div>
             </Grid.Column>
             <Grid.Column>
-              <input type='' placeholder='Add min' onChange={this.setMin}></input>
+              <div class="ui big icon input">
+                <input type='' placeholder='Add min' onChange={this.setMin}></input>
+              </div>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <input type='' placeholder='Add hours' onChange={this.setHours}></input>
+              <div class="ui big icon input">
+                <input type='' placeholder='Add hours' onChange={this.setHours}></input>
+              </div>
             </Grid.Column>
             <Grid.Column>
-              <input type='' placeholder='Add sec' onChange={this.setSec}></input>
+              <div class="ui big icon input">
+                <input type='' placeholder='Add sec' onChange={this.setSec}></input>
+              </div>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={1}>
@@ -105,11 +114,7 @@ class App extends Component {
           </Grid.Row>
           <Grid.Row columns={1}>
             <Grid.Column>
-              <div className="ui centered card">
-                <div className="content">
-                  {this.state.result}
-                </div>
-              </div>
+             <Card size='big' centered color='olive' content={this.state.result}></Card>
             </Grid.Column>
           </Grid.Row>
         </Grid>
