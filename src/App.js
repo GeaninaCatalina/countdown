@@ -6,10 +6,10 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      day: 0,
-      hour: 0,
-      min: 0,
-      sec: 0,
+      day: '',
+      hour: '',
+      min: '',
+      sec: '',
       input: false,
       result: '',
       modalIsOpen: false,
@@ -112,7 +112,20 @@ class App extends Component {
     }, 1000)
   } 
 
-  
+  onReset = (e) => {
+    clearInterval(this.myInterval)
+    this.setState(
+      { 
+        day: '', 
+        hour: '',
+        min: '',
+        sec: '', 
+        input: false, 
+        error: true, 
+        result: '',        
+      }); 
+  }  
+ 
   render() {
     return (
       <div className="App">
@@ -121,30 +134,30 @@ class App extends Component {
           <Grid.Row columns={2}>
             <Grid.Column>
               <div class="ui big icon input">
-                <Input type='' placeholder='Add day' error={this.state.error} onChange={this.setDay}></Input>
+                <Input type='' placeholder='Add day' value={this.state.day} error={this.state.error} onChange={this.setDay}></Input>
               </div>
             </Grid.Column>
             <Grid.Column>
               <div class="ui big icon input">
-                <Input type='' placeholder='Add min' error={this.state.error} onChange={this.setMin}></Input>
+                <Input type='' placeholder='Add min' value={this.state.min} error={this.state.error} onChange={this.setMin}></Input>
               </div>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={2}>
             <Grid.Column>
               <div class="ui big icon input">
-                <Input type='' placeholder='Add hours' error={this.state.error} onChange={this.setHours}></Input>
+                <Input type='' placeholder='Add hours' value={this.state.hour} error={this.state.error} onChange={this.setHours}></Input>
               </div>
             </Grid.Column>
             <Grid.Column>
               <div class="ui big icon input">
-                <Input type='' placeholder='Add sec'  error={this.state.error} onChange={this.setSec} ></Input>
+                <Input type='' placeholder='Add sec'  value={this.state.sec} error={this.state.error} onChange={this.setSec} ></Input>
               </div>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={1}>
             <Grid.Column> 
-              <Button primary onClick={this.yourResult}>OK</Button>
+              <Button color='teal' onClick={this.yourResult}>OK</Button>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -155,15 +168,18 @@ class App extends Component {
                  <h3>You should have at least one input!</h3>
                 </Modal.Content>
                 <Modal.Actions>
-                  <Button color='green' onClick={this.onCloseModal}>OK</Button>
+                  <Button color='red' onClick={this.onCloseModal}>OK</Button>
                 </Modal.Actions>
               </Modal>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={1}>
             <Grid.Column>
-             <Card size='big' centered color='olive' content={this.state.result}></Card>
-            </Grid.Column>
+             <Card size='big' centered color='olive' content={this.state.result}></Card> 
+             </Grid.Column>
+             <Grid.Column>
+             <Button color='teal' onClick={this.onReset}>Reset</Button>
+            </Grid.Column>            
           </Grid.Row>
         </Grid>
 
