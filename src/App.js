@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Grid, Card, Modal, Header, Input } from 'semantic-ui-react';
+import { Button, Grid, Card, Input } from 'semantic-ui-react';
+import ModalComponent from './ModalComponent'; 
 
 class App extends Component {
   constructor() {
@@ -18,55 +19,55 @@ class App extends Component {
   }
   setDay = (e) => {
     if (e.target.value) {
-      this.setState({ day: e.target.value, input: true, error:false});
+      this.setState({ day: e.target.value, input: true, error: false });
     } else {
       clearInterval(this.myInterval)
-      this.setState({ day: 0, input: false, error:true, result: ''});
+      this.setState({ day: 0, input: false, error: true, result: '' });
     }
   }
   setHours = (e) => {
     if (e.target.value) {
-      this.setState({ hour: e.target.value, input: true, error:false});
+      this.setState({ hour: e.target.value, input: true, error: false });
     } else {
       clearInterval(this.myInterval)
-      this.setState({ hour: 0, input: false, error:true, result: ''});
+      this.setState({ hour: 0, input: false, error: true, result: '' });
     }
   }
 
   setMin = (e) => {
     if (e.target.value) {
-      this.setState({ min: e.target.value, input: true, error:false});
+      this.setState({ min: e.target.value, input: true, error: false });
     } else {
       clearInterval(this.myInterval)
-      this.setState({ min: 0, input: false, error:true, result: ''});
+      this.setState({ min: 0, input: false, error: true, result: '' });
     }
   }
 
   setSec = (e) => {
     if (e.target.value) {
-      this.setState({ sec: e.target.value, input: true, error:false});
+      this.setState({ sec: e.target.value, input: true, error: false });
     } else {
       clearInterval(this.myInterval)
-      this.setState({ sec: 0, input: false, error:true, result: ''});
+      this.setState({ sec: 0, input: false, error: true, result: '' });
     }
   }
 
-  yourResult = () => { 
-    if (this.state.day ===0 && this.state.hour ===0 && this.state.min ===0 && this.state.sec ===0 ) {
-      this.setState({modalIsOpen: true})
+  yourResult = () => {
+    if (this.state.day === '' && this.state.hour === '' && this.state.min === '' && this.state.sec === '') {
+      this.setState({ modalIsOpen: true })
     } else {
-     this.doIntervalChange();
+      this.doIntervalChange();
     }
-  } 
+  }
 
   onCloseModal = () => {
     this.setState(
       {
-        modalIsOpen: false, 
+        modalIsOpen: false,
         error: true
-      }) 
-    
-  } 
+      })
+
+  }
 
   doIntervalChange = () => {
     this.myInterval = setInterval(() => {
@@ -110,80 +111,51 @@ class App extends Component {
       }
 
     }, 1000)
-  } 
+  }
 
   onReset = (e) => {
     clearInterval(this.myInterval)
     this.setState(
-      { 
-        day: '', 
+      {
+        day: '',
         hour: '',
         min: '',
-        sec: '', 
-        input: false, 
-        error: true, 
-        result: '',        
-      }); 
-  }  
- 
+        sec: '',
+        input: false,
+        error: true,
+        result: '',
+      });
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Countdown</h1>
         <Grid className='Grid'>
           <Grid.Row columns={2}>
-            <Grid.Column>
-              <div class="ui big icon input">
-                <Input type='' placeholder='Add day' value={this.state.day} error={this.state.error} onChange={this.setDay}></Input>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div class="ui big icon input">
-                <Input type='' placeholder='Add min' value={this.state.min} error={this.state.error} onChange={this.setMin}></Input>
-              </div>
-            </Grid.Column>
+            <Grid.Column><Input type='' size='big' placeholder='Add day' value={this.state.day} error={this.state.error} onChange={this.setDay}></Input></Grid.Column>
+            <Grid.Column><Input type='' size='big' placeholder='Add min' value={this.state.min} error={this.state.error} onChange={this.setMin}></Input></Grid.Column>
           </Grid.Row>
           <Grid.Row columns={2}>
-            <Grid.Column>
-              <div class="ui big icon input">
-                <Input type='' placeholder='Add hours' value={this.state.hour} error={this.state.error} onChange={this.setHours}></Input>
-              </div>
-            </Grid.Column>
-            <Grid.Column>
-              <div class="ui big icon input">
-                <Input type='' placeholder='Add sec'  value={this.state.sec} error={this.state.error} onChange={this.setSec} ></Input>
-              </div>
-            </Grid.Column>
+            <Grid.Column><Input type='' size='big' placeholder='Add hours' value={this.state.hour} error={this.state.error} onChange={this.setHours}></Input></Grid.Column>
+            <Grid.Column><Input type='' size='big' placeholder='Add sec' value={this.state.sec} error={this.state.error} onChange={this.setSec} ></Input></Grid.Column>
           </Grid.Row>
           <Grid.Row columns={1}>
-            <Grid.Column> 
-              <Button color='teal' onClick={this.yourResult}>OK</Button>
-            </Grid.Column>
+            <Grid.Column><Button color='teal' onClick={this.yourResult}>OK</Button></Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-            <Modal open={this.state.modalIsOpen}>
-              <Header content='Error' />
-                <Modal.Content>
-                 <h3>You should have at least one input!</h3>
-                </Modal.Content>
-                <Modal.Actions>
-                  <Button color='red' onClick={this.onCloseModal}>OK</Button>
-                </Modal.Actions>
-              </Modal>
+              <ModalComponent openModal={this.state.modalIsOpen} closeModal={this.onCloseModal}></ModalComponent>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={1}>
-            <Grid.Column>
-             <Card size='big' centered color='olive' content={this.state.result}></Card> 
-             </Grid.Column>
-             <Grid.Column>
-             <Button color='teal' onClick={this.onReset}>Reset</Button>
-            </Grid.Column>            
+            <Grid.Column><Card size='big' centered color='olive' content={this.state.result}></Card></Grid.Column>
+            <Grid.Column><Button color='teal' onClick={this.onReset}>Reset</Button></Grid.Column>
           </Grid.Row>
         </Grid>
 
       </div>
+
     )
   }
 }
