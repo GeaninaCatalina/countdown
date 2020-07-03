@@ -71,14 +71,14 @@ class App extends Component {
 
   doIntervalChange = () => {
     this.myInterval = setInterval(() => {
-      if (this.state.sec !== 0) {
+      if (this.state.sec > 0) {
         this.setState(prevState => (
           {
             sec: prevState.sec - 1,
             result: 'Days ' + this.state.day + ' Hours ' + this.state.hour + ' Minutes ' + this.state.min + ' Seconds' + this.state.sec
           }
         ))
-      } else if (this.state.min !== 0) {
+      } else if (this.state.min > 1) {
         this.setState(prevState => (
           {
             min: prevState.min - 1,
@@ -86,7 +86,7 @@ class App extends Component {
             result: 'Days ' + this.state.day + ' Hours ' + this.state.hour + ' Minutes ' + this.state.min + ' Seconds' + this.state.sec
           }
         ))
-      } else if (this.state.hour !== 0) {
+      } else if (this.state.hour > 1) {
         this.setState(prevState => (
           {
             hour: prevState.hour - 1,
@@ -95,7 +95,7 @@ class App extends Component {
             result: 'Days ' + this.state.day + ' Hours ' + this.state.hour + ' Minutes ' + this.state.min + ' Seconds' + this.state.sec
           }
         ))
-      } else if (this.state.day !== 0) {
+      } else if (this.state.day >= 0) {
         this.setState(prevState => (
           {
             day: prevState.day - 1,
